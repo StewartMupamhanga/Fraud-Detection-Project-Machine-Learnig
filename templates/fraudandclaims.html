@@ -1,0 +1,330 @@
+{%extends 'base.html'%}
+{%load static%}
+
+
+{% block head %}
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/fraudandclaims.css' %}">
+{% endblock %}
+
+{%block content%}
+<p>Instructions!</p>
+<p>This system classify whether a claim is fraudulent(1) or non-fraudulent(0) as indicated by a a colored dot <span style="color: blue;">blue</span> mean that the input claim details are not fraud while <span style="color: red;">red</span> mean that the claim is flagged fraud.</p>
+<p>Enter all claim details as required, submit the form and wait for result.</p>
+<p>Image is optional!</p>
+<p>Additonal information at the bottom of the page.</p>
+
+<div class="result">
+    <div class="button-container">
+        <a href="{% url 'claimnoclaim' %}" class="button">Claim or No Claim in 6 Months</a>
+    </div>
+    <div class="prediction">
+        <span class="marker {% if prediction == 1 %}red{% else %}blue{% endif %}"></span>
+        <p>Text prediction: {{ prediction }}</p>
+    </div>
+    <div class="image-class">
+        <span class="marker {% if image_class == 'Fraud' %}red{% else %}blue{% endif %}"></span>
+        <p>Image class: {{ image_class }}</p>
+    </div>
+</div>
+
+<form action="{% url 'fraudandclaims' %}" method="post" enctype="multipart/form-data" class="classic-form">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <label for="image-upload">Choose an image file:</label>
+        <input type="file" id="image-upload" name="image" accept="image/*">
+    </div>
+
+    <div class="form-row">
+        <label for="make">Make:</label>
+        <select name="make" id="make">
+            <option value="Honda">Honda</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Ford">Ford</option>
+            <option value="Mazda">Mazda</option>
+            <option value="Chevrolet">Chevrolet</option>
+            <option value="Pontiac">Pontiac</option>
+            <option value="Accura">Accura</option>
+            <option value="Dodge">Dodge</option>
+            <option value="Mercury">Mercury</option>
+            <option value="Jaguar">Jaguar</option>
+            <option value="Nissan">Nissan</option>
+            <option value="VW">VW</option>
+            <option value="Saab">Saab</option>
+            <option value="Saturn">Saturn</option>
+            <option value="Porsche">Porsche</option>
+            <option value="BMW">BMW</option>
+            <option value="Mercedes">Mercedes</option>
+            <option value="Ferrari">Ferrari</option>
+            <option value="Lexus">Lexus</option>
+        </select>
+
+        <label for="accident_area">Accident Area:</label>
+        <select name="accident_area" id="accident_area">
+            <option value="Urban">Urban</option>
+            <option value="Rural">Rural</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="day_of_week_claimed">Day Of Week Claimed:</label>
+        <select name="day_of_week_claimed" id="day_of_week_claimed">
+            <option value="Tuesday">Tuesday</option>
+            <option value="Monday">Monday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+
+        <label for="month_claimed">Month Claimed:</label>
+        <select name="month_claimed" id="month_claimed">
+            <option value="Jan">Jan</option>
+            <option value="Nov">Nov</option>
+            <option value="Jul">Jul</option>
+            <option value="Feb">Feb</option>
+            <option value="Mar">Mar</option>
+            <option value="Dec">Dec</option>
+            <option value="Apr">Apr</option>
+            <option value="Aug">Aug</option>
+            <option value="May">May</option>
+            <option value="Jun">Jun</option>
+            <option value="Sep">Sep</option>
+            <option value="Oct">Oct</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="week_of_month_claimed">Week Of Month Claimed:</label>
+        <select name="week_of_month_claimed" id="week_of_month_claimed">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+
+        <label for="sex">Sex:</label>
+        <select name="sex" id="sex">
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="marital_status">Marital Status:</label>
+        <select name="marital_status" id="marital_status">
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widow">Widow</option>
+            <option value="Divorced">Divorced</option>
+        </select>
+
+        <label for="fault">Fault:</label>
+        <select name="fault" id="fault">
+            <option value="Policy Holder">Policy Holder</option>
+            <option value="Third Party">Third Party</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="policy_type">Policy Type:</label>
+        <select name="policy_type" id="policy_type">
+            <option value="Sport - Liability">Sport - Liability</option>
+            <option value="Sport - Collision">Sport - Collision</option>
+            <option value="Sedan - Liability">Sedan - Liability</option>
+            <option value="Utility - All Perils">Utility - All Perils</option>
+            <option value="Sedan - All Perils">Sedan - All Perils</option>
+            <option value="Sedan - Collision">Sedan - Collision</option>
+            <option value="Utility - Collision">Utility - Collision</option>
+            <option value="Utility - Liability">Utility - Liability</option>
+            <option value="Sport - All Perils">Sport - All Perils</option>
+        </select>
+
+        <label for="vehicle_category">Vehicle Category:</label>
+        <select name="vehicle_category" id="vehicle_category">
+            <option value="Sport">Sport</option>
+            <option value="Utility">Utility</option>
+            <option value="Sedan">Sedan</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="vehicle_price">Vehicle Price:</label>
+        <select name="vehicle_price" id="vehicle_price">
+            <option value="more than 69000">more than 69000</option>
+            <option value="20000 to 29000">20000 to 29000</option>
+            <option value="30000 to 39000">30000 to 39000</option>
+            <option value="less than 20000">less than 20000</option>
+            <option value="40000 to 59000">40000 to 59000</option>
+            <option value="60000 to 69000">60000 to 69000</option>
+        </select>
+
+        <label for="policy_number">Policy Number:</label>
+        <select name="policy_number" id="policy_number">
+            <option value="10361">10361</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <!-- Add more options as needed -->
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="deductible">Deductible:</label>
+        <select name="deductible" id="deductible">
+            <option value="300">300</option>
+            <option value="400">400</option>
+            <option value="500">500</option>
+            <option value="700">700</option>
+        </select>
+
+        <label for="driver_rating">Driver Rating:</label>
+        <select name="driver_rating" id="driver_rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="days_policy_accident">Days Policy Accident:</label>
+        <select name="days_policy_accident" id="days_policy_accident">
+            <option value="more than 30">more than 30</option>
+            <option value="15 to 30">15 to 30</option>
+            <option value="none">none</option>
+            <option value="1 to 7">1 to 7</option>
+            <option value="8 to 15">8 to 15</option>
+        </select>
+
+        <label for="days_policy_claim">Days Policy Claim:</label>
+        <select name="days_policy_claim" id="days_policy_claim">
+            <option value="more than 30">more than 30</option>
+            <option value="15 to 30">15 to 30</option>
+            <option value="8 to 15">8 to 15</option>
+            <option value="none">none</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="past_number_of_claims">Past Number Of Claims:</label>
+        <select name="past_number_of_claims" id="past_number_of_claims">
+            <option value="none">none</option>
+            <option value="1">1</option>
+            <option value="2 to 4">2 to 4</option>
+            <option value="more than 4">more than 4</option>
+        </select>
+
+        <label for="age_of_vehicle">Age Of Vehicle:</label>
+        <select name="age_of_vehicle" id="age_of_vehicle">
+            <option value="3 years">3 years</option>
+            <option value="6 years">6 years</option>
+            <option value="7 years">7 years</option>
+            <option value="more than 7">more than 7</option>
+            <option value="5 years">5 years</option>
+            <option value="new">new</option>
+            <option value="4 years">4 years</option>
+            <option value="2 years">2 years</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="age_of_policy_holder">Age Of Policy Holder:</label>
+        <select name="age_of_policy_holder" id="age_of_policy_holder">
+            <option value="26 to 30">26 to 30</option>
+            <option value="31 to 35">31 to 35</option>
+            <option value="41 to 50">41 to 50</option>
+            <option value="51 to 65">51 to 65</option>
+            <option value="21 to 25">21 to 25</option>
+            <option value="36 to 40">36 to 40</option>
+            <option value="16 to 17">16 to 17</option>
+            <option value="over 65">over 65</option>
+            <option value="18 to 20">18 to 20</option>
+        </select>
+
+        <label for="police_report_filed">Police Report Filed:</label>
+        <select name="police_report_filed" id="police_report_filed">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="witness_present">Witness Present:</label>
+        <select name="witness_present" id="witness_present">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+        </select>
+
+        <label for="agent_type">Agent Type:</label>
+        <select name="agent_type" id="agent_type">
+            <option value="External">External</option>
+            <option value="Internal">Internal</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="number_of_suppliments">Number Of Supplements:</label>
+        <select name="number_of_suppliments" id="number_of_suppliments">
+            <option value="none">none</option>
+            <option value="more than 5">more than 5</option>
+            <option value="3 to 5">3 to 5</option>
+            <option value="1 to 2">1 to 2</option>
+        </select>
+
+        <label for="address_change_claim">Address Change Claim:</label>
+        <select name="address_change_claim" id="address_change_claim">
+            <option value="1 year">1 year</option>
+            <option value="no change">no change</option>
+            <option value="4 to 8 years">4 to 8 years</option>
+            <option value="2 to 3 years">2 to 3 years</option>
+            <option value="under 6 months">under 6 months</option>
+        </select>
+    </div>
+
+    <div class="form-row">
+        <label for="number_of_cars">Number Of Cars:</label>
+        <select name="number_of_cars" id="number_of_cars">
+            <option value="3 to 4">3 to 4</option>
+            <option value="1 vehicle">1 vehicle</option>
+            <option value="2 vehicles">2 vehicles</option>
+            <option value="5 to 8">5 to 8</option>
+            <option value="more than 8">more than 8</option>
+        </select>
+
+        <label for="base_policy">Base Policy:</label>
+        <select name="base_policy" id="base_policy">
+            <option value="Liability">Liability</option>
+            <option value="Collision">Collision</option>
+            <option value="All Perils">All Perils</option>
+        </select>
+    </div>
+
+    <input type="submit" value="Submit" class="submit-button">
+</form>
+
+
+<p>Machine learning classification is a method used to categorize data into predefined classes based on input features. The goal is to train a model using historical data so that it can predict the class of new, unseen data. For example, in fraud detection, a model can determine whether a claim is legitimate or fraudulent based on various attributes like accident area, witness present, and user behavior as shown by the input fields.</p>
+
+<p><strong>Logistic Regression</strong> is a statistical model used for binary classification problems. It predicts the probability that a given input belongs to a particular category. It uses a logistic function to map predicted values between 0 and 1. When the output is greater than 0.5, the model predicts one class (e.g., fraudulent), and if it's less, it predicts the other class (e.g., non-fraudulent). Logistic Regression is often used for cases where the relationship between the input features and the output class is expected to be linear.</p>
+
+<p><strong>Random Forest</strong> is an ensemble learning method that combines multiple decision trees to improve accuracy and reduce overfitting. It creates many decision trees during training and merges their predictions. Each tree is trained on a random subset of the data, and the final output is based on the majority vote from all trees. Random Forest is versatile and can handle both classification and regression tasks, making it particularly useful for complex datasets with many features and non-linear relationships.</p>
+
+<p>In summary, both Logistic Regression and Random Forest are powerful tools for classification tasks. The choice between them depends on the nature of the data and the specific requirements of the problem at hand. Understanding these algorithms helps in selecting the right approach to ensure accurate predictions in applications like fraud detection.</p>
+{%endblock%}
+
+{%block scripts%}
+<script src="{% static '/js/fraudandclaims.js' %}"></script>
+{%endblock%}

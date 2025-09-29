@@ -1,0 +1,41 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width={device-width}, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+    <title>{% block title %}claims fraud{% endblock %}</title>
+    {% block head %}
+    <!-- Additional head elements can be included here -->
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Down with Fraudulent Claims</h1>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block scripts %}
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Sanctuary Insurance Company. All rights reserved.</p>
+            <p>Follow us on 
+                <a href="#" class="footer-link">Facebook</a>, 
+                <a href="#" class="footer-link">Twitter</a>, 
+                <a href="#" class="footer-link">Instagram</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
