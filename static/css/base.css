@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: center; /* Center the header content */
+    align-items: center;
+    padding: 20px 0; /* Add vertical padding but remove horizontal padding */
+    width: 100vw; /* Ensure the header takes full viewport width */
+    background-color: #e41d25; /* Optional: Background color for the header */
+    position: relative; /* Position relative to avoid overflow */
+    left: 50%; /* Center the header */
+    right: 50%; /* Center the header */
+    margin-left: -50vw; /* Shift left by half of the viewport width */
+    margin-right: -50vw; /* Shift right by half of the viewport width */
+}
+
+header h1 {
+    margin: 0; /* Remove default margin from h1 */
+    text-align: center; /* Center text */
+    color: #182838;
+}
+
+main {
+    padding: 20px; /* Padding for main content */
+    text-align: center; /* Center align text in the main section */
+}
+p{
+    color: #182838;
+}
+
+
+
+
+
+.footer {
+    background-color: #e41d25; /* Red background */
+    color: #182838; /* White text color */
+    text-align: center; /* Centered text */
+    padding: 20px; /* Padding around footer */
+    position: relative; /* Positioning context */
+    bottom: 0; /* Stick it to the bottom */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.footer-content {
+    max-width: 1200px; /* Optional: max width for content */
+    margin: 0 auto; /* Center content */
+    padding: 0 15px; /* Add horizontal padding */
+}
+
+.footer-link {
+    color: white; /* White link color */
+    text-decoration: none; /* Remove underline */
+}
+
+.footer-link:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+
+

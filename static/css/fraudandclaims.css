@@ -1,0 +1,106 @@
+body {
+    background-color: #f0f0f0;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+    margin: 20px;
+}
+
+.classic-form {
+    background-color: #e0e0e0; /* Background color */
+    border: 2px solid #444; /* Border color */
+    padding: 20px; /* Padding inside the form */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5), /* Inner shadow for sunken effect */
+                2px 2px 8px rgba(0, 0, 0, 0.5); /* Outer shadow */
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+label {
+    width: 40%;
+    font-weight: bold;
+}
+
+input[type="file"],
+select {
+    width: 55%; /* Width of the input and select */
+    padding: 5px; /* Padding inside the elements */
+    border: 2px solid #444; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #e0e0e0; /* Background color */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5); /* Inner shadow for sunken effect */
+    transition: box-shadow 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Optional: Add hover effect */
+input[type="file"]:hover,
+select:hover {
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.3); /* Slightly lighter inner shadow on hover */
+}
+
+input[type="submit"] {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #666;
+}
+
+/* result form */
+.result {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
+    padding: 15px; /* Padding inside the result box */
+    background-color: #f0f0f0; /* Light background */
+    border-radius: 5px; /* Rounded corners */
+    position: relative; /* Make positioning of child elements relative to this */
+}
+
+.button-container {
+    position: absolute; /* Position it absolutely within the result box */
+    top: 10px; /* Distance from the top */
+    right: 10px; /* Distance from the right */
+}
+
+.prediction, .image-class {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center vertically */
+}
+
+.marker {
+    width: 15px; /* Width of the marker */
+    height: 15px; /* Height of the marker */
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px; /* Space between marker and text */
+}
+
+.red {
+    background-color: red; /* Red marker */
+}
+
+.blue {
+    background-color: blue; /* Blue marker */
+}
+
+.button {
+    padding: 10px 15px; /* Button padding */
+    background-color: #444; /* Button color */
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline */
+    border-radius: 5px; /* Rounded button */
+}
+
+.button:hover {
+    background-color: #666; /* Darker on hover */
+}
+
+
